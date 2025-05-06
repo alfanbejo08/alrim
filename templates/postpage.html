@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ post.title }} • AlrimCo</title>
+
+  <!-- Google Fonts + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Post CSS -->
+  <link rel="stylesheet" href="static/css/postpage.css">
+</head>
+<body>
+
+  <!-- same header as mainpage -->
+  <header class="site-header">
+    <div class="logo">AlrimCo</div>
+    <nav class="main-nav">
+      <a href="/">Home</a>
+      <a href="/deals/">Deals</a>
+      <a href="/guides/">Guides</a>
+      <a href="/blog/">Blog</a>
+      <a href="/contact/">Contact</a>
+      <button class="hamburger"><i class="fas fa-bars"></i></button>
+    </nav>
+  </header>
+
+  <!-- POST HERO -->
+  <section class="post-hero">
+    <h1>{{ post.title }}</h1>
+    <div class="meta">
+      <time datetime="{{ post.date }}">{{ post.date.split('T')[0] }}</time>
+    </div>
+  </section>
+
+  <!-- POST CONTENT -->
+  <article class="post-content container">
+    {{ post.html|safe }}
+    <!-- call-to-action button at the end: -->
+    <div class="cta">
+      <a href="{{ post.affiliate_url }}" class="btn">Shop Now on Amazon</a>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    © 2025 AlrimCo • <a href="/rss.xml">RSS</a>
+  </footer>
+
+  <!-- Post JS -->
+  <script src="static/js/postpage.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+/* RESET & BASE */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Roboto',sans-serif; color:#eee; background:#111; }
+
+/* HEADER */
+.site-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1rem 2rem; background:rgba(0,0,0,.7);
+  position:fixed; top:0; width:100%; z-index:100;
+}
+.site-header .logo { font-size:1.5rem; font-weight:700; color:#0cf; }
+.main-nav a { color:#fff; margin:0 1rem; text-decoration:none; }
+.hamburger { display:none; background:none; border:none; color:#fff; font-size:1.2rem; }
+
+/* HERO */
+.hero {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8rem 2rem 4rem; min-height:80vh;
+  background: url('static/img/hero-bg.jpg') center/cover no-repeat fixed;
+}
+.hero-content { max-width:600px; }
+.hero-content h1 { font-size:3rem; line-height:1.2; color:#0cf; margin-bottom:1rem; }
+.hero-content p { font-size:1.1rem; margin-bottom:1.5rem; }
+.btn {
+  display:inline-block; background:#0cf; color:#111; padding:.75rem 1.5rem;
+  border-radius:4px; text-decoration:none; font-weight:500;
+  transition:background .3s;
+}
+.btn:hover { background:#09a; }
+.hero-image img { max-width:100%; border-radius:8px; }
+
+/* SERVICES */
+.services { padding:4rem 2rem; background:#121212; text-align:center; }
+.services h2 { font-size:2rem; color:#0cf; margin-bottom:2rem; }
+.services-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;
+}
+.services .card {
+  background:#1e1e1e; padding:2rem 1rem; border-radius:8px;
+  transition:transform .3s, box-shadow .3s;
+}
+.services .card:hover {
+  transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,.7);
+}
+.services .card h3 { margin:.5rem 0; color:#fff; }
+.services .card p { color:#ccc; font-size:.95rem; }
+
+/* ABOUT */
+.about { padding:4rem 2rem; max-width:800px; margin:0 auto; text-align:center; }
+.about h2 { font-size:2rem; color:#0cf; margin-bottom:1rem; }
+.about p { color:#ddd; font-size:1rem; line-height:1.6; }
+
+/* STATS */
+.stats {
+  display:flex; justify-content:space-around; padding:3rem 2rem;
+  background:#181818; text-align:center;
+}
+.stat { font-size:1.5rem; }
+.stat .count { display:block; font-size:2.5rem; color:#0cf; }
+
+/* FOOTER */
+.site-footer {
+  padding:2rem; text-align:center; background:#000; color:#666;
+}
+.site-footer a { color:#0cf; text-decoration:none; }
