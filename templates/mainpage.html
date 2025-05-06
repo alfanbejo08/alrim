@@ -39,21 +39,24 @@
     </div>
   </section>
 
-  <!-- LATEST POSTS -->
-  <section id="latest-posts" class="posts container">
-    <h2>Latest Reviews & Deals</h2>
-    <ul class="posts-grid">
-      {% for post in posts %}
-      <li class="post-card">
-        <a href="/{{ post.slug }}/">
-          <h3>{{ post.title }}</h3>
-          <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
-          <p>{{ post.description }}</p>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </section>
+    <!-- LATEST POSTS -->
+    <section id="latest-posts" class="posts container">
+      <h2>Latest Reviews &amp; Deals</h2>
+      <div class="posts-wrapper">
+        <ul class="posts-grid">
+          {% for post in posts %}
+          <li class="post-card">
+            <a href="/{{ post.slug }}/">
+              <h3>{{ post.title }}</h3>
+              <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
+              <p>{{ post.description }}</p>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+  
 
   <!-- SERVICES -->
   <section id="services" class="services container">

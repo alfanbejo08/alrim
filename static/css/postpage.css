@@ -1,62 +1,138 @@
-/* reuse base reset */
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Roboto',sans-serif; background:#111; color:#eee; }
+/* reset & base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
 
-/* HEADER (same as mainpage) */
+/* ─── HEADER FIX ───────────────────────────────────────────────────────────── */
 .site-header {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:1rem 2rem; background:rgba(0,0,0,.7);
-  position:fixed; top:0; width:100%; z-index:100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 }
-.site-header .logo { font-size:1.5rem; font-weight:700; color:#0cf; }
-.main-nav a { color:#fff; margin:0 1rem; text-decoration:none; }
-.hamburger { display:none; background:none; border:none; color:#fff; font-size:1.2rem; }
-
-/* HERO AREA */
+/* push page down so header doesn't cover it */
 .post-hero {
-  padding:6rem 2rem 2rem; text-align:center;
-  background: #121212 url('../img/post-hero-bg.jpg') center/cover no-repeat fixed;
+  padding-top: 6rem; 
 }
-.post-hero h1 { font-size:2.5rem; color:#0cf; margin-bottom:.5rem; }
+
+/* ─── HERO AREA ────────────────────────────────────────────────────────────── */
+.post-hero {
+  text-align: center;
+  background: #1e1e1e;
+  padding: 2rem 1rem;
+  border-bottom: 1px solid #333;
+}
+.post-hero h1 {
+  font-size: 2.5rem;
+  color: #0cf;
+  margin-bottom: 0.5rem;
+}
 .post-hero .meta time {
-  color:#888; font-size:1rem;
+  color: #888;
+  font-size: 1rem;
 }
 
-/* CONTENT */
+/* ─── CONTAINER ────────────────────────────────────────────────────────────── */
 .container {
-  max-width:800px; margin:2rem auto; padding:0 1rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
-.post-content p {
-  margin:1rem 0; line-height:1.6; color:#ddd;
-}
-.post-content h2 {
-  margin:2rem 0 .75rem; color:#0cf; font-size:1.5rem;
-}
-.post-content ul, .post-content ol {
-  margin:1rem 0 1rem 1.5rem; color:#ccc;
-}
-.post-content table {
-  width:100%; border-collapse:collapse; margin:1rem 0;
-}
-.post-content table th,
-.post-content table td {
-  border:1px solid #333; padding:.5rem; text-align:left;
-}
-.post-content table th { background:#1e1e1e; }
 
-/* CTA BUTTON */
-.post-content .cta {
-  text-align:center; margin:3rem 0;
+/* ─── POST CARD ───────────────────────────────────────────────────────────── */
+.post-card {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.post-content .cta .btn {
-  display:inline-block; background:#0cf; color:#111;
-  padding:.75rem 1.5rem; border-radius:4px; text-decoration:none;
-  font-weight:500; transition:background .3s;
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.8);
 }
-.post-content .cta .btn:hover { background:#09a; }
 
-/* FOOTER */
+/* headings inside content */
+.post-card h2,
+.post-card h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #0cf;
+}
+.post-card p,
+.post-card li {
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+/* lists */
+.post-card ul,
+.post-card ol {
+  margin-left: 1.5rem;
+}
+
+/* tables */
+.post-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+.post-card table th,
+.post-card table td {
+  border: 1px solid #333;
+  padding: 0.5rem;
+  text-align: left;
+}
+.post-card table th {
+  background: #2a2a2a;
+}
+
+/* Pros & Cons table detection */
+.post-card table th:first-child {
+  background: #0a2a4f;
+  color: #0cf;
+}
+.post-card table th:last-child {
+  background: #4f0a0a;
+  color: #f44;
+}
+
+/* CTA button */
+.post-card .cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+.post-card .btn {
+  display: inline-block;
+  background: #0cf;
+  color: #111;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+.post-card .btn:hover {
+  background: #09a;
+}
+
+/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
 .site-footer {
-  padding:2rem; text-align:center; background:#000; color:#666;
+  text-align: center;
+  padding: 2rem 0;
+  background: #000;
+  color: #666;
 }
-.site-footer a { color:#0cf; text-decoration:none; }
+.site-footer a {
+  color: #0cf;
+  text-decoration: none;
+}
