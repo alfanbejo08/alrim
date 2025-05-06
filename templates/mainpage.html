@@ -6,8 +6,17 @@
   <title>AlrimCo — Smart Reviews & Deals</title>
 
   <!-- Google Fonts + Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- GA snippet -->
+  {{ ga_snippet|safe }}
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="/static/css/mainpage.css">
@@ -15,17 +24,7 @@
 <body>
 
   <!-- NAVBAR -->
-  <header class="site-header">
-    <div class="logo">AlrimCo</div>
-    <nav class="main-nav">
-      <a href="/">Home</a>
-      <a href="/deals/">Deals</a>
-      <a href="/guides/">Guides</a>
-      <a href="/blog/">Blog</a>
-      <a href="/contact/">Contact</a>
-      <button class="hamburger"><i class="fas fa-bars"></i></button>
-    </nav>
-  </header>
+  {{ header|safe }}
 
   <!-- HERO -->
   <section class="hero">
@@ -39,52 +38,26 @@
     </div>
   </section>
 
-    <!-- LATEST POSTS -->
-    <section id="latest-posts" class="posts container">
-      <h2>Latest Reviews &amp; Deals</h2>
-      <div class="posts-wrapper">
-        <ul class="posts-grid">
-          {% for post in posts %}
-          <li class="post-card">
-            <a href="/{{ post.slug }}/">
-              <h3>{{ post.title }}</h3>
-              <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
-              <p>{{ post.description }}</p>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
-  
-
-  <!-- SERVICES -->
-  <section id="services" class="services container">
-    <h2>What We Offer</h2>
-    <div class="services-grid">
-      <!-- … your existing service cards … -->
+  <!-- LATEST POSTS -->
+  <section id="latest-posts" class="posts container">
+    <h2>Latest Reviews &amp; Deals</h2>
+    <div class="posts-wrapper">
+      <ul class="posts-grid">
+        {% for post in posts %}
+        <li class="post-card">
+          <a href="/{{ post.slug }}/">
+            <h3>{{ post.title }}</h3>
+            <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
+            <p>{{ post.description }}</p>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="about container">
-    <h2>Who We Are</h2>
-    <p>At AlrimCo, we blend data-driven insights with hands-on testing to bring you the very best in product recommendations. Our mission is simple: empower you to buy smarter.</p>
-  </section>
+  <!-- … rest of your page … -->
 
-  <!-- STATS -->
-  <section class="stats container">
-    <div class="stat"><span class="count" data-target="500">0</span>+ Deals</div>
-    <div class="stat"><span class="count" data-target="1200">0</span>+ Guides</div>
-    <div class="stat"><span class="count" data-target="300">0</span>+ Reviews</div>
-    <div class="stat"><span class="count" data-target="24">0</span>/7 Support</div>
-  </section>
-
-  <footer class="site-footer">
-    © 2025 AlrimCo • <a href="/rss.xml">RSS</a> • <a href="#">Privacy Policy</a>
-  </footer>
-
-  <!-- Main JS -->
   <script src="/static/js/mainpage.js"></script>
 </body>
 </html>

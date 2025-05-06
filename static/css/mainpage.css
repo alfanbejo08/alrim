@@ -130,4 +130,72 @@ body { font-family:'Roboto',sans-serif; color:#eee; background:#111; }
   .post-card a:hover h3 {
     text-decoration: underline;
   }
+/* ─── POSTS CARDS ─────────────────────────────────────────────────────────── */
+
+/* Horizontal scroller */
+.posts-wrapper {
+    overflow-x: auto;
+    padding: 1rem 0;
+    -webkit-overflow-scrolling: touch; /* smoother on iOS */
+  }
+  
+  /* hide native scrollbar (WebKit) */
+  .posts-wrapper::-webkit-scrollbar {
+    height: 6px;
+  }
+  .posts-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0,204,255,0.3);
+    border-radius: 3px;
+  }
+  
+  /* flex row of cards */
+  .posts-grid {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* each card */
+  .post-card {
+    flex: 0 0 auto;       /* no shrink, no grow */
+    min-width: 260px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+  }
+  
+  /* card content */
+  .post-card h3 {
+    font-size: 1.25rem;
+    color: #0cf;
+    margin-bottom: .5rem;
+  }
+  .post-card time {
+    display: block;
+    font-size: .85rem;
+    color: #888;
+    margin-bottom: 1rem;
+  }
+  .post-card p {
+    font-size: .95rem;
+    color: #ccc;
+    line-height: 1.4;
+  }
+  
+  /* make entire card clickable */
+  .post-card a {
+    display: block;
+    text-decoration: none;
+  }
+  .post-card a:hover h3 {
+    text-decoration: underline;
+  }
   
