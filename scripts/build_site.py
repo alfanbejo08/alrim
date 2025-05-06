@@ -2,16 +2,16 @@
 import os
 import shutil
 import logging
-from datetime import datetime
+from datetime import datetime, date
 import frontmatter
 import markdown
 from jinja2 import Template
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
-CONTENT_DIR   = "content/post"               # where your markdown lives
-OUTPUT_DIR    = "public"                      # where to output generated files
-STATIC_DIR    = "static"                      # your css/js/images go here
-TEMPLATE_DIR  = "templates"                   # your two html templates here
+CONTENT_DIR   = "content/post"        # where your markdown lives
+OUTPUT_DIR    = "public"              # output directory
+STATIC_DIR    = "static"              # static assets
+TEMPLATE_DIR  = "templates"           # HTML templates folder
 
 BASE_URL      = os.getenv("BASE_URL", "https://alrimco.web.app")
 GA_ID         = os.getenv("GA_MEASUREMENT_ID", "G-EF7SY2WX3S")
@@ -23,7 +23,7 @@ with open(os.path.join(TEMPLATE_DIR, "mainpage.html"), encoding="utf-8") as f:
 with open(os.path.join(TEMPLATE_DIR, "postpage.html"), encoding="utf-8") as f:
     POST_TPL = Template(f.read())
 
-# ─── GA SNIPPET ─────────────────────────────────────────────────────────────────
+# ─── GOOGLE ANALYTICS SNIPPET ─────────────────────────────────────────────────
 GA_SNIPPET = f"""<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
 <script>
@@ -34,8 +34,7 @@ GA_SNIPPET = f"""<!-- Global site tag (gtag.js) - Google Analytics -->
 </script>
 """
 
-# ─── OPTIONAL HEADER HTML ──────────────────────────────────────────────────────
-# If you want a consistent header, or you can bake it into your templates
+# ─── OPTIONAL NAV HEADER ──────────────────────────────────────────────────────
 HEADER_HTML = """
 <nav class="site-nav">
   <a href="/">Home</a>
@@ -53,40 +52,46 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
-# ─── BUILD HELPERS ─────────────────────────────────────────────────────────────
-
+# ─── LOAD POSTS ─────────────────────────────────────────────────────────────────
 def load_posts():
     posts = []
-    for fn in os.listdir(CONTENT_DIR):
-        if not fn.endswith(".md"):
+    for fname in os.listdir(CONTENT_DIR):
+        if not fname.endswith(".md"):
             continue
-        path = os.path.join(CONTENT_DIR, fn)
+        path = os.path.join(CONTENT_DIR, fname)
         fm   = frontmatter.load(path)
         html = markdown.markdown(fm.content, extensions=["tables"])
-        slug = os.path.splitext(fn)[0]
+        slug = os.path.splitext(fname)[0]
 
-        # build a description fallback
-        desc = fm.metadata.get("description", "")
+        # parse and stringify date
+        raw_date = fm.metadata.get("date")
+        if isinstance(raw_date, datetime):
+            date_str = raw_date.isoformat()
+        elif isinstance(raw_date, date):
+            date_str = datetime.combine(raw_date, datetime.min.time()).isoformat()
+        else:
+            date_str = str(raw_date) if raw_date else datetime.utcnow().isoformat()
+
+        # description fallback
+        desc = fm.metadata.get("description", "").strip()
         if not desc:
-            desc = fm.content.strip().replace("\n"," ")[:150] + "…"
+            desc = fm.content.strip().replace("\n", " ")[:150] + "…"
 
         posts.append({
-            "slug": slug,
-            "meta": {
-                "title":       fm.metadata.get("title", slug.replace("-", " ").title()),
-                "date":        fm.metadata.get("date", datetime.utcnow().isoformat()+"Z"),
-                "description": desc,
-                "slug":        slug,
-            },
-            "html": html,
+            "slug":         slug,
+            "title":        fm.metadata.get("title", slug.replace("-", " ").title()),
+            "date":         date_str,
+            "description":  desc,
+            "html":         html,
+            "affiliate_url": fm.metadata.get("affiliate_url", "")
         })
 
-    # newest first
-    posts.sort(key=lambda x: x["meta"]["date"], reverse=True)
+    posts.sort(key=lambda x: x["date"], reverse=True)
     return posts
 
+# ─── RENDER INDEX ──────────────────────────────────────────────────────────────
 def render_index(posts):
-    """Render the landing page from mainpage.html template."""
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     out_path = os.path.join(OUTPUT_DIR, "index.html")
     logging.info("Writing index page: %s", out_path)
     with open(out_path, "w", encoding="utf-8") as f:
@@ -98,38 +103,35 @@ def render_index(posts):
             now        = datetime.utcnow()
         ))
 
+# ─── RENDER POSTS ──────────────────────────────────────────────────────────────
 def render_posts(posts):
-    """Render each post at public/<slug>/index.html using postpage.html template."""
-    for p in posts:
-        dest_dir = os.path.join(OUTPUT_DIR, p["slug"])
-        os.makedirs(dest_dir, exist_ok=True)
-        out_path = os.path.join(dest_dir, "index.html")
-        logging.info("Writing post: %s", out_path)
+    for post in posts:
+        dest = os.path.join(OUTPUT_DIR, post["slug"])
+        os.makedirs(dest, exist_ok=True)
+        out_path = os.path.join(dest, "index.html")
+        logging.info("Writing post page: %s", out_path)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(POST_TPL.render(
-                meta       = p["meta"],
-                content    = p["html"],
+                post       = post,
                 ga_snippet = GA_SNIPPET,
                 base_url   = BASE_URL,
                 header     = HEADER_HTML,
                 now        = datetime.utcnow()
             ))
 
+# ─── COPY STATIC ───────────────────────────────────────────────────────────────
 def copy_static():
-    """Copy everything under static/ to public/static/."""
     if not os.path.isdir(STATIC_DIR):
-        logging.warning("No static directory found, skipping.")
+        logging.warning("No static directory found; skipping.")
         return
-    target = os.path.join(OUTPUT_DIR, "static")
-    if os.path.exists(target):
-        shutil.rmtree(target)
-    logging.info("Copying %s → %s", STATIC_DIR, target)
-    shutil.copytree(STATIC_DIR, target)
+    dest = os.path.join(OUTPUT_DIR, "static")
+    if os.path.exists(dest):
+        shutil.rmtree(dest)
+    logging.info("Copying static assets: %s → %s", STATIC_DIR, dest)
+    shutil.copytree(STATIC_DIR, dest)
 
 # ─── MAIN ───────────────────────────────────────────────────────────────────────
-
 def main():
-    # clean
     if os.path.exists(OUTPUT_DIR):
         logging.info("Removing old output: %s", OUTPUT_DIR)
         shutil.rmtree(OUTPUT_DIR)
@@ -140,7 +142,7 @@ def main():
     render_posts(posts)
     copy_static()
 
-    logging.info("Done! %d posts → %s", len(posts), OUTPUT_DIR)
+    logging.info("Build complete: %d posts → %s", len(posts), OUTPUT_DIR)
 
 if __name__ == "__main__":
     main()
