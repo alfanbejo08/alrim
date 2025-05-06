@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{{ meta.title }} • AlrimCo</title>
+  <title>{{ post.title }} • AlrimCo</title>
 
   <!-- Google Fonts + Icons -->
   <link
@@ -15,33 +15,35 @@
     rel="stylesheet"
   >
 
+  <!-- GA snippet -->
+  {{ ga_snippet|safe }}
+
   <!-- Post CSS -->
   <link rel="stylesheet" href="/static/css/postpage.css">
 </head>
 <body>
 
-  <!-- site-wide header -->
+  <!-- shared header -->
   {{ header|safe }}
 
-  <!-- POST CARD HERO -->
-  <section class="post-hero">
-    <h1>{{ meta.title }}</h1>
-    <div class="meta">
-      <time datetime="{{ meta.date }}">{{ meta.date[:10] }}</time>
-    </div>
-  </section>
-
-  <!-- POST CONTENT CARD -->
-  <main class="container">
+  <main class="post-container">
     <article class="post-card">
-      {{ content|safe }}
 
-      <!-- call-to-action at the bottom -->
-      {% if meta.affiliate_url %}
-      <div class="cta">
-        <a href="{{ meta.affiliate_url }}" class="btn">Shop Now on Amazon</a>
+      <!-- Hero / title + date -->
+      <header class="post-hero">
+        <h1>{{ post.title }}</h1>
+        <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
+      </header>
+
+      <!-- Actual generated HTML -->
+      <div class="post-content">
+        {{ post.html|safe }}
       </div>
-      {% endif %}
+
+      <!-- Affiliate button at bottom -->
+      <footer class="post-cta">
+        <a href="{{ post.affiliate_url }}" class="btn">Shop on Amazon</a>
+      </footer>
     </article>
   </main>
 
@@ -49,7 +51,6 @@
     © {{ now.year }} AlrimCo • <a href="/rss.xml">RSS</a>
   </footer>
 
-  <!-- Post JS -->
   <script src="/static/js/postpage.js"></script>
 </body>
 </html>
