@@ -2,20 +2,27 @@
 name: Generate & Deploy Site
 
 on:
+  # run on every push to main
   push:
     branches: [ main ]
+
+  # run on schedule:
   schedule:
+    # every 15 minutes
     - cron: '*/15 * * * *'
     # daily at 01:00 UTC
     - cron: '0 1 * * *'
-    # weekly Monday at 04:00 UTC
+    # weekly on Monday at 04:00 UTC
     - cron: '0 4 * * 1'
+
+  # manual trigger via GitHub UI
+  workflow_dispatch:
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
-    # make sure your OpenAI key is set here
+    # ensure your OpenAI key is provided
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
@@ -49,7 +56,7 @@ jobs:
       - name: Generate RSS Feed
         run: python scripts/generate_rss.py
 
-      # ← NEW: bump Node to v20 so firebase-tools can run
+      # bump Node so firebase-tools works
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
