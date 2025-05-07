@@ -1,4 +1,3 @@
-# .github/workflows/ci.yml
 name: Generate & Deploy Site
 
 on:
@@ -8,8 +7,6 @@ on:
 
   # run on schedule:
   schedule:
-    # every 15 minutes
-    - cron: '*/15 * * * *'
     # daily at 01:00 UTC
     - cron: '0 1 * * *'
     # weekly on Monday at 04:00 UTC
@@ -56,7 +53,6 @@ jobs:
       - name: Generate RSS Feed
         run: python scripts/generate_rss.py
 
-      # bump Node so firebase-tools works
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
