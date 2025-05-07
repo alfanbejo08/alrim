@@ -5,6 +5,7 @@ on:
   push:
     branches: [ main ]
   schedule:
+    - cron: '*/15 * * * *'
     # daily at 01:00 UTC
     - cron: '0 1 * * *'
     # weekly Monday at 04:00 UTC
