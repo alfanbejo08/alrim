@@ -1,60 +1,71 @@
-# .github/workflows/ci.yml
 name: Generate & Deploy Site
+
+# allow this workflow to push back to the repo
+permissions:
+  contents: write
 
 on:
   push:
     branches: [ main ]
+
   schedule:
-    - cron: '*/15 * * * *'   # for testing
+    # every 15 minutes (testing)
+    - cron: '*/15 * * * *'
+    # daily at 01:00 UTC
     - cron: '0 1 * * *'
+    # weekly on Monday at 04:00 UTC
     - cron: '0 4 * * 1'
+
   workflow_dispatch:
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-        # allow pushing back to the repo
         with:
+          # so that pushes use the GITHUB_TOKEN
           persist-credentials: true
+          # fetch full history so we can commit onto main
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
-        with: { python-version: '3.10' }
+        with:
+          python-version: '3.10'
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install \
-            requests \
             python-frontmatter \
             markdown \
             jinja2 \
             pandas \
             python-slugify \
             python-dotenv \
-            openai
+            openai \
+            requests
 
       - name: Generate Posts (OpenAI)
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: gpt-4.1-nano
         run: python scripts/generate_post.py
 
       - name: Commit new post Markdown
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "actions@github.com"
-          # only commit if there's anything new in content/post
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add content/post
-          if ! git diff --cached --quiet; then
+          # only commit if there are any new files
+          if git diff --cached --quiet; then
+            echo "✔️  No new posts to commit"
+          else
             git commit -m "chore: add new post from schedule"
             git push origin main
-          else
-            echo "No changes to content/post/, skipping commit."
           fi
 
       - name: Build Site (Jinja2)
@@ -65,7 +76,8 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
-        with: { node-version: '20.x' }
+        with:
+          node-version: '20.x'
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
