@@ -114,7 +114,7 @@ def main():
 
     for _, row in df.iterrows():
         kw = row["keyword"]
-        url = row["affiliate_link"]
+        url = row["affiliate_url"]
         logging.info("Generating post for keyword: %s", kw)
         try:
             prompt = build_prompt(kw, url, POST_LENGTH)
