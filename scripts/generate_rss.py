@@ -11,61 +11,71 @@ SITE_URL = os.getenv("BASE_URL", "https://alrimco.web.app")
 # Where to write the RSS file
 OUT_FILE = "public/rss.xml"
 
+def parse_date(raw):
+    """Turn strings or dates into a tz-naive UTC datetime."""
+    # 1) If it’s already a datetime
+    if isinstance(raw, datetime.datetime):
+        dt = raw
+    # 2) If it’s a date
+    elif isinstance(raw, datetime.date):
+        dt = datetime.datetime.combine(raw, datetime.time())
+    # 3) Otherwise try parsing ISO strings
+    else:
+        s = (raw or "").rstrip("Z")
+        try:
+            dt = datetime.datetime.fromisoformat(s)
+        except Exception:
+            dt = datetime.datetime.utcnow()
+    # 4) If it has tzinfo, convert → UTC and drop tzinfo
+    if dt.tzinfo is not None:
+        dt = dt.astimezone(datetime.timezone.utc).replace(tzinfo=None)
+    return dt
+
 def make_rss():
-    items = []
+    entries = []
     # 1) Gather all posts
     for md_path in glob.glob("content/post/*.md"):
         post = frontmatter.load(md_path)
         slug = os.path.splitext(os.path.basename(md_path))[0]
         url = f"{SITE_URL}/{slug}/"
 
-        # Title & description
-        title = escape(post.metadata.get("title", slug.replace("-", " ").title()))
+        title = escape(post.metadata.get("title",
+                          slug.replace("-", " ").title()))
         description = escape(post.content.strip()[:150] + "…")
 
-        # Date metadata (could be str or datetime)
-        date_meta = post.metadata.get("date")
-        items.append((date_meta, title, url, description))
+        raw_date = post.metadata.get("date")
+        dt = parse_date(raw_date)
 
-    # 2) Sort by date descending
-    items.sort(key=lambda x: x[0], reverse=True)
+        entries.append({
+            "dt": dt,
+            "title": title,
+            "link": url,
+            "descr": description,
+        })
+
+    # 2) Sort by descending date
+    entries.sort(key=lambda e: e["dt"], reverse=True)
 
     # 3) Build <item> blocks
-    rss_items = []
-    for date_meta, title, url, description in items:
-        # Parse date_meta into a datetime
-        if isinstance(date_meta, str):
-            # strip trailing Z if present
-            _s = date_meta.rstrip("Z")
-            try:
-                dt = datetime.datetime.fromisoformat(_s)
-            except ValueError:
-                dt = datetime.datetime.utcnow()
-        elif isinstance(date_meta, datetime.datetime):
-            dt = date_meta
-        elif isinstance(date_meta, datetime.date):
-            dt = datetime.datetime.combine(date_meta, datetime.time())
-        else:
-            dt = datetime.datetime.utcnow()
-
-        pub_date = dt.strftime('%a, %d %b %Y %H:%M:%S GMT')
-
-        rss_items.append(f"""
+    items_xml = []
+    for e in entries:
+        pub_date = e["dt"].strftime("%a, %d %b %Y %H:%M:%S GMT")
+        items_xml.append(f"""
   <item>
-    <title>{title}</title>
-    <link>{url}</link>
+    <title>{e['title']}</title>
+    <link>{e['link']}</link>
     <pubDate>{pub_date}</pubDate>
-    <description>{description}</description>
+    <description>{e['descr']}</description>
   </item>""")
 
-    # 4) Wrap in RSS & write file
+    # 4) Wrap in RSS and write
     rss_feed = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
 <channel>
   <title>AlrimCo Blog</title>
   <link>{SITE_URL}</link>
   <description>Latest posts from AlrimCo</description>
-{''.join(rss_items)}
+{''.join(items_xml)}
 </channel>
 </rss>"""
 
