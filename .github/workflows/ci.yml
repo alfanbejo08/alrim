@@ -7,6 +7,8 @@ on:
 
   # run on schedule:
   schedule:
+    # every 15 minutes (for testing)
+    - cron: '*/15 * * * *'
     # daily at 01:00 UTC
     - cron: '0 1 * * *'
     # weekly on Monday at 04:00 UTC
@@ -42,7 +44,8 @@ jobs:
             pandas \
             python-slugify \
             python-dotenv \
-            openai
+            openai \
+            requests
 
       - name: Generate Posts (OpenAI)
         run: python scripts/generate_post.py
