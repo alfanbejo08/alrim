@@ -1,4 +1,4 @@
-name: Generate & Deploy Site
+name: Generate & Deploy Sites
 
 # allow this workflow to push back to the repo
 permissions:
