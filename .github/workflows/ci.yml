@@ -5,23 +5,16 @@ on:
   push:
     branches: [ main ]
 
-  # run on schedule:
+  # run on schedule every 15 minutes (UTC)
   schedule:
-    # every 15 minutes (for testing)
     - cron: '*/15 * * * *'
-    # daily at 01:00 UTC
-    - cron: '0 1 * * *'
-    # weekly on Monday at 04:00 UTC
-    - cron: '0 4 * * 1'
 
-  # manual trigger via GitHub UI
+  # manual trigger
   workflow_dispatch:
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-
-    # ensure your OpenAI key is provided
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
