@@ -57,7 +57,7 @@ def read_keywords_from_sheet():
         logging.error("No data found in sheet; exiting.")
         sys.exit(1)
     # Expect columns "keyword" and "affiliate_link"
-    if not {"keyword", "affiliate_link"}.issubset(df.columns):
+    if not {"keyword", "affiliate_url"}.issubset(df.columns):
         logging.error("Sheet must have 'keyword' and 'affiliate_link' columns.")
         sys.exit(1)
     return df
