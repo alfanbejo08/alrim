@@ -45,22 +45,30 @@ def load_api_key():
         sys.exit(1)
     openai.api_key = key
 
-def read_keywords_from_sheet():
+def read_latest_keyword():
     try:
         resp = requests.get(SHEET_CSV_URL)
         resp.raise_for_status()
     except Exception as e:
         logging.error("Failed to fetch sheet: %s", e)
         sys.exit(1)
+
     df = pd.read_csv(io.StringIO(resp.text))
+
+    # if your sheet still calls it "affiliate_link", rename that to affiliate_url
+    if "affiliate_link" in df.columns:
+        df = df.rename(columns={"affiliate_link": "affiliate_url"})
+
+    # sanity checks
     if df.empty:
         logging.error("No data found in sheet; exiting.")
         sys.exit(1)
-    # Expect columns "keyword" and "affiliate_link"
     if not {"keyword", "affiliate_url"}.issubset(df.columns):
-        logging.error("Sheet must have 'keyword' and 'affiliate_link' columns.")
+        logging.error("Sheet must have 'keyword' and 'affiliate_url' columns.")
         sys.exit(1)
-    return df
+
+    # pick only the last row (newest entry)
+    return df.tail(1).iloc[0]
 
 def build_prompt(keyword, affiliate_url, length=POST_LENGTH):
     return (
@@ -109,20 +117,18 @@ def main():
     setup_logging()
     load_api_key()
 
-    df = read_keywords_from_sheet()
-    model = os.getenv("OPENAI_MODEL", DEFAULT_MODEL)
+    row = read_latest_keyword()
+    kw  = row["keyword"]
+    url = row["affiliate_url"]
 
-    for _, row in df.iterrows():
-        kw = row["keyword"]
-        url = row["affiliate_url"]
-        logging.info("Generating post for keyword: %s", kw)
-        try:
-            prompt = build_prompt(kw, url, POST_LENGTH)
-            content = generate_content(prompt, model)
-            save_markdown(kw, url, content)
-        except Exception as e:
-            logging.exception("Failed to generate post for %s: %s", kw, e)
+    logging.info("Generating post for latest keyword: %s", kw)
+    try:
+        prompt = build_prompt(kw, url, POST_LENGTH)
+        content = generate_content(prompt, os.getenv("OPENAI_MODEL", DEFAULT_MODEL))
+        save_markdown(kw, url, content)
+    except Exception as e:
+        logging.exception("Failed to generate post for %s: %s", kw, e)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
-
