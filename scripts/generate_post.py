@@ -4,14 +4,20 @@ import sys
 import logging
 from datetime import datetime
 import pandas as pd
+import requests
+import io
 import openai
 from slugify import slugify
 from dotenv import load_dotenv
 
 # ——— CONFIGURATION —————————————————————————————————————————————————
 
-# Path to your keywords CSV
-CSV_PATH = "data/keywords.csv"
+# URL to your published Google Sheet CSV export
+SHEET_CSV_URL = (
+    "https://docs.google.com/spreadsheets/d/"
+    "11vrnE62rZgQ-4tPzb-_diM9EbDIkBT8Fh6-khEIetMA"
+    "/export?format=csv"
+)
 
 # Where to write your Markdown posts
 OUTPUT_DIR = "content/post"
@@ -39,11 +45,22 @@ def load_api_key():
         sys.exit(1)
     openai.api_key = key
 
-def read_keywords(csv_path=CSV_PATH):
-    if not os.path.exists(csv_path):
-        logging.error(f"Keywords CSV not found at {csv_path}")
+def read_keywords_from_sheet():
+    try:
+        resp = requests.get(SHEET_CSV_URL)
+        resp.raise_for_status()
+    except Exception as e:
+        logging.error("Failed to fetch sheet: %s", e)
         sys.exit(1)
-    return pd.read_csv(csv_path)
+    df = pd.read_csv(io.StringIO(resp.text))
+    if df.empty:
+        logging.error("No data found in sheet; exiting.")
+        sys.exit(1)
+    # Expect columns "keyword" and "affiliate_link"
+    if not {"keyword", "affiliate_link"}.issubset(df.columns):
+        logging.error("Sheet must have 'keyword' and 'affiliate_link' columns.")
+        sys.exit(1)
+    return df
 
 def build_prompt(keyword, affiliate_url, length=POST_LENGTH):
     return (
@@ -61,7 +78,7 @@ def generate_content(prompt, model):
     )
     return resp.choices[0].message.content
 
-def save_markdown(keyword, content, out_dir=OUTPUT_DIR):
+def save_markdown(keyword, affiliate_url, content, out_dir=OUTPUT_DIR):
     slug = slugify(keyword)
     filename = os.path.join(out_dir, f"{slug}.md")
     os.makedirs(out_dir, exist_ok=True)
@@ -72,10 +89,11 @@ def save_markdown(keyword, content, out_dir=OUTPUT_DIR):
 
     frontmatter = [
         "---",
-        f'title: "{keyword.title()}"',
+        f'title: "{keyword}"',
         f'date: {datetime.utcnow().isoformat()}Z',
         f'description: "{description}"',
         f'slug: "{slug}"',
+        f'affiliate_url: "{affiliate_url}"',
         "---\n",
     ]
 
@@ -91,19 +109,20 @@ def main():
     setup_logging()
     load_api_key()
 
-    df = read_keywords()
+    df = read_keywords_from_sheet()
     model = os.getenv("OPENAI_MODEL", DEFAULT_MODEL)
 
     for _, row in df.iterrows():
-        kw = row.keyword
-        url = row.affiliate_url
+        kw = row["keyword"]
+        url = row["affiliate_link"]
         logging.info("Generating post for keyword: %s", kw)
         try:
             prompt = build_prompt(kw, url, POST_LENGTH)
             content = generate_content(prompt, model)
-            save_markdown(kw, content)
+            save_markdown(kw, url, content)
         except Exception as e:
             logging.exception("Failed to generate post for %s: %s", kw, e)
 
 if __name__ == "__main__":
     main()
+
