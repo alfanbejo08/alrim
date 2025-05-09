@@ -3,8 +3,6 @@ const btn = document.querySelector('.hamburger');
 const nav = document.querySelector('.main-nav');
 btn?.addEventListener('click', () => nav.classList.toggle('open'));
 
-// Smooth-scroll links (already handled by CSS scroll-behavior)
-
 // Counter animation
 const counters = document.querySelectorAll('.count');
 const speed = 200;
@@ -26,11 +24,9 @@ counters.forEach(counter => {
 // Live search filter
 const searchInput = document.getElementById('post-search');
 const cards = document.querySelectorAll('.post-card');
-
 searchInput?.addEventListener('input', e => {
   const q = e.target.value.trim().toLowerCase();
   cards.forEach(card => {
-    const title = card.dataset.title;
-    card.style.display = title.includes(q) ? 'block' : 'none';
+    card.style.display = card.dataset.title.includes(q) ? 'block' : 'none';
   });
 });

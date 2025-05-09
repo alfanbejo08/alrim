@@ -6,8 +6,14 @@
   <title>AlrimCo — Smart Reviews & Deals</title>
 
   <!-- Google Fonts + Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  >
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="/static/css/mainpage.css">
@@ -59,6 +65,7 @@
               <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
               <p>{{ post.description }}</p>
             </div>
+            <div class="card-image"></div>
           </a>
         </li>
         {% endfor %}
