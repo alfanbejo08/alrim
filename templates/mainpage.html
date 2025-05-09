@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
   <title>AlrimCo — Smart Reviews & Deals</title>
 
   <!-- Google Fonts + Icons -->
@@ -17,6 +18,13 @@
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="/static/css/mainpage.css">
+
+  <!-- enable smooth scrolling via CSS -->
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 <body>
 
@@ -112,7 +120,7 @@
     </div>
   </footer>
 
-  <!-- Main JS -->
-  <script src="/static/js/mainpage.js"></script>
+  <!-- Main JS (deferred so the DOM is fully loaded) -->
+  <script defer src="/static/js/mainpage.js"></script>
 </body>
 </html>
