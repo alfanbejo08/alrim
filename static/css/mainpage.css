@@ -121,3 +121,72 @@ body { font-family:'Roboto',sans-serif; color:#eee; background:#111; }
   flex: 0 0 40%;
   background: #0cf;
 }
+/* new: center all your main sections */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  /* services */
+  .services {
+    padding: 4rem 0;
+    background: #121212;
+  }
+  .services h2 {
+    font-size: 2rem;
+    color: #0cf;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* about */
+  .about {
+    padding: 4rem 0;
+    background: #111;
+    text-align: center;
+  }
+  .about h2 {
+    font-size: 2rem;
+    color: #0cf;
+    margin-bottom: 1rem;
+  }
+  .about p {
+    color: #ddd;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* stats */
+  .stats {
+    padding: 3rem 0;
+    background: #181818;
+  }
+  .stats-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .stat {
+    font-size: 1.5rem;
+    margin: 0.5rem 1rem;
+  }
+  .stat .count {
+    display: block;
+    font-size: 2.5rem;
+    color: #0cf;
+  }
+  
+  /* footer */
+  .site-footer {
+    padding: 2rem 0;
+    background: #000;
+    color: #666;
+    text-align: center;
+  }
+  .site-footer a {
+    color: #0cf;
+    margin: 0 0.5rem;
+  }
+  
