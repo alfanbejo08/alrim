@@ -1,5 +1,6 @@
 /* RESET & BASE */
 * { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; } /* smooth scroll */
 body { font-family:'Roboto',sans-serif; color:#eee; background:#111; }
 
 /* HEADER */
@@ -10,17 +11,17 @@ body { font-family:'Roboto',sans-serif; color:#eee; background:#111; }
 }
 .site-header .logo { font-size:1.5rem; font-weight:700; color:#0cf; }
 .main-nav a { color:#fff; margin:0 1rem; text-decoration:none; }
-.hamburger { display:none; background:none; border:none; color:#fff; font-size:1.2rem; }
+.hamburger { display:none; /* … */ }
 
 /* HERO */
 .hero {
   display:flex; align-items:center; justify-content:space-between;
   padding:8rem 2rem 4rem; min-height:80vh;
-  background: url('static/img/hero-bg.jpg') center/cover no-repeat fixed;
+  background: url('/static/img/hero-bg.jpg') center/cover no-repeat fixed;
 }
 .hero-content { max-width:600px; }
-.hero-content h1 { font-size:3rem; line-height:1.2; color:#0cf; margin-bottom:1rem; }
-.hero-content p { font-size:1.1rem; margin-bottom:1.5rem; }
+.hero-content h1 { font-size:3rem; color:#0cf; margin-bottom:1rem; }
+.hero-content p  { font-size:1.1rem; margin-bottom:1.5rem; }
 .btn {
   display:inline-block; background:#0cf; color:#111; padding:.75rem 1.5rem;
   border-radius:4px; text-decoration:none; font-weight:500;
@@ -29,105 +30,63 @@ body { font-family:'Roboto',sans-serif; color:#eee; background:#111; }
 .btn:hover { background:#09a; }
 .hero-image img { max-width:100%; border-radius:8px; }
 
-/* SERVICES */
-.services { padding:4rem 2rem; background:#121212; text-align:center; }
-.services h2 { font-size:2rem; color:#0cf; margin-bottom:2rem; }
-.services-grid {
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1.5rem;
+/* POSTS SECTION */
+.posts {
+  padding:4rem 2rem;
+  margin-top:1rem;
 }
-.services .card {
-  background:#1e1e1e; padding:2rem 1rem; border-radius:8px;
-  transition:transform .3s, box-shadow .3s;
-}
-.services .card:hover {
-  transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,.7);
-}
-.services .card h3 { margin:.5rem 0; color:#fff; }
-.services .card p { color:#ccc; font-size:.95rem; }
+.posts h2 { font-size:2rem; color:#0cf; margin-bottom:1rem; }
 
-/* ABOUT */
-.about { padding:4rem 2rem; max-width:800px; margin:0 auto; text-align:center; }
-.about h2 { font-size:2rem; color:#0cf; margin-bottom:1rem; }
-.about p { color:#ddd; font-size:1rem; line-height:1.6; }
-
-/* STATS */
-.stats {
-  display:flex; justify-content:space-around; padding:3rem 2rem;
-  background:#181818; text-align:center;
+/* SEARCH BAR */
+.search-bar {
+  position:relative; max-width:400px; margin-bottom:1.5rem;
 }
-.stat { font-size:1.5rem; }
-.stat .count { display:block; font-size:2.5rem; color:#0cf; }
-
-/* FOOTER */
-.site-footer {
-  padding:2rem; text-align:center; background:#000; color:#666;
+.search-bar input {
+  width:100%; padding:.75rem 2.5rem .75rem 1rem;
+  border-radius:4px; border:none; font-size:1rem;
 }
-.site-footer a { color:#0cf; text-decoration:none; }
+.search-bar i {
+  position:absolute; right:1rem; top:50%; transform:translateY(-50%);
+  color:#888;
+}
 
-/* ─── Scrollable flex row wrapper ───────────────────────────────────────────── */
+/* HORIZONTAL SCROLL WRAPPER */
 .posts-wrapper {
-    overflow-x: auto;
-    padding: 1rem 0;
-  }
-  
-  /* hide default scrollbar in WebKit, optional */
-  .posts-wrapper::-webkit-scrollbar {
-    height: 8px;
-  }
-  .posts-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(0,204,255,0.3);
-    border-radius: 4px;
-  }
-  
-  /* ─── Flex row instead of grid ─────────────────────────────────────────────── */
-  .posts-grid {
-    display: flex;
-    gap: 1rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* ─── Card styling ─────────────────────────────────────────────────────────── */
-  .post-card {
-    flex: 0 0 auto;        /* prevent shrinking or growing */
-    min-width: 260px;       /* card width */
-    background: #1e1e1e;
-    border-radius: 8px;
-    padding: 1.25rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .post-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.8);
-  }
-  
-  /* card content */
-  .post-card h3 {
-    font-size: 1.25rem;
-    color: #0cf;
-    margin-bottom: 0.5rem;
-  }
-  .post-card time {
-    display: block;
-    font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 1rem;
-  }
-  .post-card p {
-    font-size: 0.95rem;
-    color: #ccc;
-    line-height: 1.4;
-  }
-  
-  /* ensure links fill the card area */
-  .post-card a {
-    display: block;
-    text-decoration: none;
-  }
-  .post-card a:hover h3 {
-    text-decoration: underline;
-  }
+  overflow-x:auto; padding-bottom:1rem;
+}
+.posts-wrapper::-webkit-scrollbar {
+  height:8px;
+}
+.posts-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(0,204,255,0.3); border-radius:4px;
+}
 
+/* FLEX ROW CARDS */
+.posts-grid {
+  display:flex; gap:1rem; list-style:none;
+}
+.post-card {
+  flex:0 0 auto; min-width:300px;
+  background:#1e1e1e; border-radius:8px;
+  overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.6);
+  transition:transform .2s, box-shadow .2s;
+}
+.post-card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.8);
+}
+/* content padding */
+.card-content {
+  padding:1.25rem;
+}
+.card-content h3 {
+  font-size:1.5rem; color:#0cf; margin-bottom:.5rem;
+}
+.card-content time {
+  display:block; font-size:.85rem; color:#888; margin-bottom:.75rem;
+}
+.card-content p {
+  font-size:.95rem; color:#ccc; line-height:1.4;
+}
+
+/* rest of your existing styles… */

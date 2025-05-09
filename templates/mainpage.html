@@ -32,31 +32,39 @@
     <div class="hero-content">
       <h1>Your Go-To Affiliate Hub</h1>
       <p>Expert-written reviews, top deals, and comprehensive guides—all in one place.</p>
-      <a href="#latest-posts" class="btn">See Latest Posts</a>
+      <a href="#latest-posts" class="btn scroll-link">See Latest Posts</a>
     </div>
     <div class="hero-image">
       <img src="/static/img/hero.png" alt="Affiliate deals">
     </div>
   </section>
 
-    <!-- LATEST POSTS -->
-    <section id="latest-posts" class="posts container">
-      <h2>Latest Reviews &amp; Deals</h2>
-      <div class="posts-wrapper">
-        <ul class="posts-grid">
-          {% for post in posts %}
-          <li class="post-card">
-            <a href="/{{ post.slug }}/">
+  <!-- LATEST POSTS -->
+  <section id="latest-posts" class="posts container">
+    <h2>Latest Reviews &amp; Deals</h2>
+
+    <!-- SEARCH BAR -->
+    <div class="search-bar">
+      <input type="text" id="post-search" placeholder="Search posts…">
+      <i class="fas fa-search"></i>
+    </div>
+
+    <div class="posts-wrapper">
+      <ul class="posts-grid" id="posts-grid">
+        {% for post in posts %}
+        <li class="post-card" data-title="{{ post.title | lower }}">
+          <a href="/{{ post.slug }}/">
+            <div class="card-content">
               <h3>{{ post.title }}</h3>
               <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
               <p>{{ post.description }}</p>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
-  
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
 
   <!-- SERVICES -->
   <section id="services" class="services container">
@@ -69,7 +77,7 @@
   <!-- ABOUT -->
   <section class="about container">
     <h2>Who We Are</h2>
-    <p>At AlrimCo, we blend data-driven insights with hands-on testing to bring you the very best in product recommendations. Our mission is simple: empower you to buy smarter.</p>
+    <p>At AlrimCo, we blend data-driven insights with hands-on testing to bring you the very best in product recommendations.</p>
   </section>
 
   <!-- STATS -->
@@ -80,6 +88,7 @@
     <div class="stat"><span class="count" data-target="24">0</span>/7 Support</div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
     © 2025 AlrimCo • <a href="/rss.xml">RSS</a> • <a href="#">Privacy Policy</a>
   </footer>
