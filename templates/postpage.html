@@ -41,9 +41,11 @@
       </div>
 
       <!-- Affiliate button at bottom -->
-      <footer class="post-cta">
+    {% if "shopee" in post.affiliate_url %}
+        <a href="{{ post.affiliate_url }}" class="btn">Belanja di Shopee</a>
+    {% else %}
         <a href="{{ post.affiliate_url }}" class="btn">Shop on Amazon</a>
-      </footer>
+    {% endif %}
     </article>
   </main>
 
