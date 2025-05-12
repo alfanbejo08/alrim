@@ -1,174 +1,15 @@
-/* reset & base */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Roboto', sans-serif;
-  background: #121212;
-  color: #e0e0e0;
-  line-height: 1.6;
-  transition: background-color 0.3s ease; /* smooth transition */
-}
-
-/* ─── HEADER FIX ───────────────────────────────────────────────────────────── */
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(0, 0, 0, 0.8);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-  transition: background-color 0.3s ease;
-}
-
-/* ─── HERO AREA ────────────────────────────────────────────────────────────── */
-.post-hero {
-  text-align: center;
-  background: #1e1e1e;
-  padding: 2rem 1rem;
-  border-bottom: 1px solid #333;
-  animation: fadeIn 1s ease-in-out; /* Animation added */
-}
-.post-hero h1 {
-  font-size: 2.5rem;
-  color: #0cf;
-  margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Add shadow for depth */
-}
-.post-hero .meta time {
-  color: #888;
-  font-size: 1rem;
-  font-style: italic;
-}
-
-/* ─── CONTAINER ────────────────────────────────────────────────────────────── */
-.container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  animation: slideIn 1s ease-out; /* Animation added */
-}
-
-/* ─── POST CARD ───────────────────────────────────────────────────────────── */
-.post-card {
-  background: #1e1e1e;
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease;
-}
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.8);
-  background-color: #2a2a2a; /* Slightly darker background on hover */
-}
-
-/* headings inside content */
-.post-card h2,
-.post-card h3 {
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
-  color: #0cf;
-}
-.post-card p,
-.post-card li {
-  margin-bottom: 1rem;
-  color: #ccc;
-}
-
-/* lists */
-.post-card ul,
-.post-card ol {
-  margin-left: 1.5rem;
-}
-
-/* tables */
-.post-card table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  animation: fadeInTable 1.5s ease-in-out; /* Table fade-in effect */
-}
-.post-card table th,
-.post-card table td {
-  border: 1px solid #333;
-  padding: 0.5rem;
-  text-align: left;
-}
-.post-card table th {
-  background: #2a2a2a;
-}
-
-/* Pros & Cons table detection */
-.post-card table th:first-child {
-  background: #0a2a4f;
-  color: #0cf;
-}
-.post-card table th:last-child {
-  background: #4f0a0a;
-  color: #f44;
-}
-
-/* CTA button */
-.post-card .cta {
-  text-align: center;
-  margin-top: 3rem;
-}
-.post-card .btn {
-  display: inline-block;
-  background: #0cf;
-  color: #111;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Button shadow */
-}
-.post-card .btn:hover {
-  background: #09a;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); /* Shadow on hover */
-}
-
-/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
-.site-footer {
-  text-align: center;
-  padding: 2rem 0;
-  background: #000;
-  color: #666;
-}
-.site-footer a {
-  color: #0cf;
-  text-decoration: none;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideIn {
-  0% { opacity: 0; transform: translateX(-30px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeInTable {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-/* reset & base */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Roboto', sans-serif;
+/* Global Styles for Light and Dark Mode */
+body.light-mode {
   background: #f4f4f4; /* Light background */
   color: #333; /* Text color */
-  line-height: 1.6;
-  transition: background-color 0.3s ease;
 }
 
-/* Header Section */
+body.dark-mode {
+  background: #121212; /* Dark background */
+  color: #e0e0e0; /* Light text color */
+}
+
+/* Header Section for Both Modes */
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -180,7 +21,6 @@ body {
   top: 0;
   width: 100%;
   z-index: 100;
-  transition: background-color 0.3s ease;
 }
 
 .site-header .logo {
@@ -206,10 +46,24 @@ body {
   border-radius: 4px;
 }
 
-/* Hero Area */
+/* Button Styles */
+.theme-toggle {
+  background: #0cf;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: #4682b4; /* Darker blue when hovered */
+}
+
+/* Post and Content Styles for Both Modes */
 .post-hero {
   text-align: center;
-  background: #1e1e1e;
   padding: 2rem 1rem;
   border-bottom: 1px solid #333;
 }
@@ -221,69 +75,28 @@ body {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
-.post-hero .meta time {
-  color: #888;
-  font-size: 1rem;
-  font-style: italic;
-}
-
-/* Main Container */
-.container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-/* Post Card */
 .post-card {
-  background: #ffffff; /* White background */
+  background: #ffffff; /* White background for post card */
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease;
 }
 
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+.post-card.dark-mode {
+  background: #1e1e1e; /* Dark background for post card */
 }
 
-/* Button Style */
 .btn {
-  display: inline-block;
-  background: #1e90ff; /* Blue background for button */
+  background: #1e90ff;
   color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.3s ease;
 }
 
-.btn:hover {
-  background: #4682b4; /* Darker blue for button hover */
-}
-
-/* Footer Section */
-.site-footer {
-  text-align: center;
-  padding: 2rem 0;
+footer {
   background: #1e1e1e;
   color: #666;
 }
 
-.site-footer a {
-  color: #0cf;
-  text-decoration: none;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideIn {
-  0% { opacity: 0; transform: translateX(-30px); }
-  100% { opacity: 1; transform: translateX(0); }
+/* Transition between modes */
+body {
+  transition: background 0.3s ease, color 0.3s ease;
 }
