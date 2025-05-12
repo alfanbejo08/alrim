@@ -13,15 +13,3 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
             ?.scrollIntoView({ behavior: 'smooth' });
   });
 });
-
-// Fade In Content when Scrolling
-const content = document.querySelectorAll('.post-card');
-window.addEventListener('scroll', () => {
-  content.forEach(item => {
-    const position = item.getBoundingClientRect().top;
-    const windowHeight = window.innerHeight;
-    if (position < windowHeight - 100) {
-      item.classList.add('active');
-    }
-  });
-});
