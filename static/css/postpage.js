@@ -25,3 +25,26 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+// Get the theme toggle button and body element
+const themeToggleButton = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Load user’s theme preference from localStorage
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  body.classList.add(savedTheme);
+} else {
+  // Default to dark mode if no preference is saved
+  body.classList.add('dark-mode');
+}
+
+// Toggle theme when button is clicked
+themeToggleButton.addEventListener('click', () => {
+  if (body.classList.contains('dark-mode')) {
+    body.classList.replace('dark-mode', 'light-mode');
+    localStorage.setItem('theme', 'light-mode');
+  } else {
+    body.classList.replace('light-mode', 'dark-mode');
+    localStorage.setItem('theme', 'dark-mode');
+  }
+});
