@@ -5,7 +5,6 @@ body {
   background: #121212;
   color: #e0e0e0;
   line-height: 1.6;
-  transition: background-color 0.3s ease; /* smooth transition */
 }
 
 /* ─── HEADER FIX ───────────────────────────────────────────────────────────── */
@@ -19,7 +18,10 @@ body {
   top: 0;
   width: 100%;
   z-index: 100;
-  transition: background-color 0.3s ease;
+}
+/* push page down so header doesn't cover it */
+.post-hero {
+  padding-top: 6rem; 
 }
 
 /* ─── HERO AREA ────────────────────────────────────────────────────────────── */
@@ -28,18 +30,15 @@ body {
   background: #1e1e1e;
   padding: 2rem 1rem;
   border-bottom: 1px solid #333;
-  animation: fadeIn 1s ease-in-out; /* Animation added */
 }
 .post-hero h1 {
   font-size: 2.5rem;
   color: #0cf;
   margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Add shadow for depth */
 }
 .post-hero .meta time {
   color: #888;
   font-size: 1rem;
-  font-style: italic;
 }
 
 /* ─── CONTAINER ────────────────────────────────────────────────────────────── */
@@ -47,7 +46,6 @@ body {
   max-width: 800px;
   margin: 2rem auto;
   padding: 0 1rem;
-  animation: slideIn 1s ease-out; /* Animation added */
 }
 
 /* ─── POST CARD ───────────────────────────────────────────────────────────── */
@@ -56,12 +54,11 @@ body {
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .post-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.8);
-  background-color: #2a2a2a; /* Slightly darker background on hover */
 }
 
 /* headings inside content */
@@ -88,7 +85,6 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
-  animation: fadeInTable 1.5s ease-in-out; /* Table fade-in effect */
 }
 .post-card table th,
 .post-card table td {
@@ -123,12 +119,10 @@ body {
   border-radius: 4px;
   text-decoration: none;
   font-weight: 500;
-  transition: background 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Button shadow */
+  transition: background 0.3s;
 }
 .post-card .btn:hover {
   background: #09a;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); /* Shadow on hover */
 }
 
 /* ─── FOOTER ──────────────────────────────────────────────────────────────── */
@@ -141,20 +135,4 @@ body {
 .site-footer a {
   color: #0cf;
   text-decoration: none;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideIn {
-  0% { opacity: 0; transform: translateX(-30px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeInTable {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
 }
