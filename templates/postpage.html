@@ -15,36 +15,39 @@
   <!-- Post CSS -->
   <link rel="stylesheet" href="/static/css/postpage.css">
 </head>
-<body class="dark-mode">
+<body>
 
-  <!-- Header Section -->
-  <header class="site-header">
-    <div class="logo">Dashboard</div>
-    <nav class="nav-links">
-      <a href="#" class="nav-item home">Home</a>
-      <a href="#" class="nav-item">Dashboard</a>
-      <a href="#" class="nav-item">Profile</a>
-      <a href="#" class="nav-item">Settings</a>
-      <a href="#" class="nav-item sales">Sales</a>
-    </nav>
-  </header>
+  <!-- shared header -->
+  {{ header|safe }}
 
   <main class="post-container">
     <article class="post-card">
+
+      <!-- Hero / title + date -->
       <header class="post-hero">
         <h1>{{ post.title }}</h1>
         <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
       </header>
 
+      <!-- Actual generated HTML -->
       <div class="post-content">
         {{ post.html|safe }}
       </div>
 
+      <!-- Affiliate button at bottom -->
+<<<<<<< HEAD
+    {% if "shopee" in post.affiliate_url %}
+        <a href="{{ post.affiliate_url }}" class="btn">Belanja di Shopee</a>
+    {% else %}
+        <a href="{{ post.affiliate_url }}" class="btn">Belanja di Tokopedia</a>
+    {% endif %}
+=======
       {% if "shopee" in post.affiliate_url %}
-          <a href="{{ post.affiliate_url }}" class="btn">Shop on Shopee</a>
+          <a href="{{ post.affiliate_url }}" class="btn">Belanja di Shopee</a>
       {% else %}
           <a href="{{ post.affiliate_url }}" class="btn">Shop on Amazon</a>
       {% endif %}
+>>>>>>> 0f79fa1 (Updated postpage HTML, CSS, and JS)
     </article>
   </main>
 
@@ -52,6 +55,6 @@
     © {{ now.year }} AlrimCo • <a href="/rss.xml">RSS</a>
   </footer>
 
-  <script src="/static/js/postpage.js"></script>
+  <script src="/static/css/postpage.js"></script>
 </body>
 </html>
