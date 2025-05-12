@@ -96,7 +96,57 @@ footer {
   color: #666;
 }
 
-/* Transition between modes */
-body {
-  transition: background 0.3s ease, color 0.3s ease;
+/* Table Specific Styles for Light and Dark Mode */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  background: #1e90ff;
+  color: white;
+  font-weight: bold;
+}
+
+td {
+  background: #333;
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background: #2a2a2a;
+}
+
+thead th {
+  background-color: #4682b4; /* Darker blue for the header */
+}
+
+thead th.light-mode {
+  background-color: #87cefa; /* Lighter blue for light mode */
+}
+
+td {
+  color: #e0e0e0;
+}
+
+/* Table Header Styling for Dark Mode */
+body.dark-mode table th {
+  background-color: #e53946; /* Red for dark mode header */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
