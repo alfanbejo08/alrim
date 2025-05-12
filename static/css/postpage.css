@@ -1,15 +1,13 @@
-/* Global Styles for Light and Dark Mode */
-body.light-mode {
-  background: #f4f4f4; /* Light background */
-  color: #333; /* Text color */
-}
-
-body.dark-mode {
+/* Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Roboto', sans-serif;
   background: #121212; /* Dark background */
   color: #e0e0e0; /* Light text color */
+  line-height: 1.6;
 }
 
-/* Header Section for Both Modes */
+/* Header Section */
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -17,10 +15,7 @@ body.dark-mode {
   padding: 1rem 2rem;
   background: #1e90ff; /* Blue background */
   color: white;
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 100;
 }
 
 .site-header .logo {
@@ -46,24 +41,10 @@ body.dark-mode {
   border-radius: 4px;
 }
 
-/* Button Styles */
-.theme-toggle {
-  background: #0cf;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.theme-toggle:hover {
-  background: #4682b4; /* Darker blue when hovered */
-}
-
-/* Post and Content Styles for Both Modes */
+/* Hero Area */
 .post-hero {
   text-align: center;
+  background: #1e1e1e;
   padding: 2rem 1rem;
   border-bottom: 1px solid #333;
 }
@@ -75,78 +56,90 @@ body.dark-mode {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
+.post-hero .meta time {
+  color: #888;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* Post Card */
 .post-card {
-  background: #ffffff; /* White background for post card */
+  background: #1e1e1e;
   border-radius: 8px;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease;
 }
 
-.post-card.dark-mode {
-  background: #1e1e1e; /* Dark background for post card */
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+  background-color: #2a2a2a; /* Slightly darker background on hover */
 }
 
-.btn {
-  background: #1e90ff;
-  color: white;
-}
-
-footer {
-  background: #1e1e1e;
-  color: #666;
-}
-
-/* Table Specific Styles for Light and Dark Mode */
-table {
+/* Table */
+.post-card table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
 }
 
-th, td {
-  padding: 0.75rem;
+.post-card table th,
+.post-card table td {
+  border: 1px solid #333;
+  padding: 0.5rem;
   text-align: left;
 }
 
-th {
-  background: #1e90ff;
-  color: white;
-  font-weight: bold;
+.post-card table th {
+  background: #0a2a4f;
+  color: #0cf;
 }
 
-td {
+.post-card table td {
   background: #333;
-  color: white;
-}
-
-tbody tr:nth-child(even) {
-  background: #2a2a2a;
-}
-
-thead th {
-  background-color: #4682b4; /* Darker blue for the header */
-}
-
-thead th.light-mode {
-  background-color: #87cefa; /* Lighter blue for light mode */
-}
-
-td {
   color: #e0e0e0;
 }
 
-/* Table Header Styling for Dark Mode */
-body.dark-mode table th {
-  background-color: #e53946; /* Red for dark mode header */
+.post-card .btn {
+  display: inline-block;
+  background: #1e90ff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
+.post-card .btn:hover {
+  background: #4682b4;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); /* Shadow on hover */
 }
 
-@keyframes slideIn {
-  0% { opacity: 0; transform: translateX(-30px); }
-  100% { opacity: 1; transform: translateX(0); }
+/* Footer Section */
+.site-footer {
+  text-align: center;
+  padding: 2rem 0;
+  background: #1e1e1e;
+  color: #666;
+}
+
+.site-footer a {
+  color: #0cf;
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-header .nav-links {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
 }
