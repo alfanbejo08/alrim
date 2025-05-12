@@ -136,3 +136,148 @@ body {
   color: #0cf;
   text-decoration: none;
 }
+
+/* Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInTable {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+/* reset & base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f4f4f4; /* Light background */
+  color: #333; /* Text color */
+  line-height: 1.6;
+  transition: background-color 0.3s ease;
+}
+
+/* Header Section */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1e90ff; /* Blue background */
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  transition: background-color 0.3s ease;
+}
+
+.site-header .logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.site-header .nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.site-header .nav-links .nav-item {
+  font-size: 1rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.site-header .nav-links .nav-item:hover {
+  background-color: #4682b4; /* Darker blue when hovered */
+  border-radius: 4px;
+}
+
+/* Hero Area */
+.post-hero {
+  text-align: center;
+  background: #1e1e1e;
+  padding: 2rem 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.post-hero h1 {
+  font-size: 2.5rem;
+  color: #0cf;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.post-hero .meta time {
+  color: #888;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* Main Container */
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Post Card */
+.post-card {
+  background: #ffffff; /* White background */
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Style */
+.btn {
+  display: inline-block;
+  background: #1e90ff; /* Blue background for button */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #4682b4; /* Darker blue for button hover */
+}
+
+/* Footer Section */
+.site-footer {
+  text-align: center;
+  padding: 2rem 0;
+  background: #1e1e1e;
+  color: #666;
+}
+
+.site-footer a {
+  color: #0cf;
+  text-decoration: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
