@@ -1,3 +1,77 @@
+/* Add these new rules */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.affiliate-card {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  margin-top: 6rem;
+}
+
+.card-content {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.sticky-cta {
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Floating Header Animation */
+.site-header {
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.5rem 2rem;
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+  
+  .affiliate-card {
+    position: static;
+    margin-top: 2rem;
+    order: -1;
+  }
+  
+  .site-header {
+    padding: 1rem;
+  }
+  
+  .post-hero h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Keep existing styles below */
+
+
 /* reset & base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -281,3 +355,106 @@ body {
   0% { opacity: 0; transform: translateX(-30px); }
   100% { opacity: 1; transform: translateX(0); }
 }
+/* Global Styles for Light and Dark Mode */
+body.light-mode {
+    background: #f4f4f4; /* Light background */
+    color: #333; /* Text color */
+  }
+  
+  body.dark-mode {
+    background: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+  }
+  
+  /* Header Section for Both Modes */
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #1e90ff; /* Blue background */
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  .site-header .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .site-header .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .site-header .nav-links .nav-item {
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .site-header .nav-links .nav-item:hover {
+    background-color: #4682b4; /* Darker blue when hovered */
+    border-radius: 4px;
+  }
+  
+  /* Button Styles */
+  .theme-toggle {
+    background: #0cf;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .theme-toggle:hover {
+    background: #4682b4; /* Darker blue when hovered */
+  }
+  
+  /* Post and Content Styles for Both Modes */
+  .post-hero {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-bottom: 1px solid #333;
+  }
+  
+  .post-hero h1 {
+    font-size: 2.5rem;
+    color: #0cf;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  }
+  
+  .post-card {
+    background: #ffffff; /* White background for post card */
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-card.dark-mode {
+    background: #1e1e1e; /* Dark background for post card */
+  }
+  
+  .btn {
+    background: #1e90ff;
+    color: white;
+  }
+  
+  footer {
+    background: #1e1e1e;
+    color: #666;
+  }
+  
+  /* Transition between modes */
+  body {
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  

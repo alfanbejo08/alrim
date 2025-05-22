@@ -22,24 +22,20 @@
 
   <main class="post-container">
     <article class="post-card">
-
-      <!-- Hero / title + date -->
       <header class="post-hero">
         <h1>{{ post.title }}</h1>
         <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
       </header>
 
-      <!-- Actual generated HTML -->
       <div class="post-content">
         {{ post.html|safe }}
       </div>
 
-      <!-- Affiliate button at bottom -->
-    {% if "shopee" in post.affiliate_url %}
-        <a href="{{ post.affiliate_url }}" class="btn">Belanja di Shopee</a>
-    {% else %}
-        <a href="{{ post.affiliate_url }}" class="btn">Belanja di Tokopedia</a>
-    {% endif %}
+      {% if "shopee" in post.affiliate_url %}
+          <a href="{{ post.affiliate_url }}" class="btn">Shop on Shopee</a>
+      {% else %}
+          <a href="{{ post.affiliate_url }}" class="btn">Shop on Amazon</a>
+      {% endif %}
     </article>
   </main>
 

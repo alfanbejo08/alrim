@@ -1,3 +1,18 @@
+// Add header scroll effect
+window.addEventListener('scroll', () => {
+  const header = document.querySelector('.site-header');
+  const scrollY = window.scrollY;
+  
+  if (scrollY > 100) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+// Keep existing functions below
+
+
 // Mobile menu toggle (re-used)
 const btn = document.querySelector('.hamburger');
 const nav = document.querySelector('.main-nav');
