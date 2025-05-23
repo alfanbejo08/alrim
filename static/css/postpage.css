@@ -2,8 +2,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: 'Roboto', sans-serif;
-  background: #f4f4f4; /* Light background */
-  color: #333; /* Text color */
+  background: #f4f4f4;
+  color: #333;
   line-height: 1.6;
 }
 
@@ -27,6 +27,10 @@ body {
   padding: 1rem 2rem;
 }
 
+.site-header h1 {
+  color: white;
+}
+
 /* Content Layout */
 .content-grid {
   display: grid;
@@ -40,10 +44,11 @@ body {
 .affiliate-card {
   position: sticky;
   top: 100px;
+  z-index: 10; /* Ensure the card stays above other content */
 }
 
 .card-content {
-  background: #f9f9f9; /* Light background */
+  background: #f9f9f9;
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -61,7 +66,7 @@ body {
   text-align: center;
   width: 100%;
   margin-top: 1rem;
-  background-color: #1e90ff; /* Primary button color */
+  background-color: #1e90ff;
   color: white;
   padding: 1rem 2rem;
   border-radius: 5px;
@@ -71,13 +76,13 @@ body {
 }
 
 .sticky-cta:hover {
-  background-color: #4682b4; /* Hover effect for button */
+  background-color: #4682b4;
 }
 
 /* Mobile Layout */
 @media (max-width: 768px) {
   .content-grid {
-    grid-template-columns: 1fr; /* Stacks content and card */
+    grid-template-columns: 1fr;
     padding: 2rem;
   }
 
@@ -97,7 +102,7 @@ body {
 
 /* Post Card */
 .post-card {
-  background: #ffffff; /* White background for cards */
+  background: #ffffff;
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -123,7 +128,7 @@ body {
 .site-footer {
   text-align: center;
   padding: 2rem 0;
-  background: #f4f4f4; /* Light footer background */
+  background: #f4f4f4;
   color: #333;
 }
 

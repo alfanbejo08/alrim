@@ -2,7 +2,8 @@
 window.addEventListener('scroll', () => {
   const header = document.querySelector('.site-header');
   const scrollY = window.scrollY;
-  
+
+  // Add the 'scrolled' class when the user scrolls down
   if (scrollY > 100) {
     header.classList.add('scrolled');
   } else {
