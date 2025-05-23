@@ -38,11 +38,8 @@
       {% endif %}
     </article>
 
-    <!-- New Content Grid with Floating Card -->
+    <!-- Floating Card on the Side (without duplicate post content) -->
     <div class="content-grid">
-      <div class="post-content">
-        {{ post.html|safe }}
-      </div>
       <div class="affiliate-card">
         <div class="card-content">
           <img class="product-image" src="{{ post.image_url }}" alt="Product Image">
