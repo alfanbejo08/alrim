@@ -2,7 +2,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: 'Roboto', sans-serif;
-  background: #ffffff; /* Light background */
+  background: #f4f4f4; /* Light background */
   color: #333; /* Text color */
   line-height: 1.6;
 }

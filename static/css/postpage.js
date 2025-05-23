@@ -10,8 +10,6 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Keep existing functions below
-
 // Mobile menu toggle (re-used)
 const btn = document.querySelector('.hamburger');
 const nav = document.querySelector('.main-nav');
