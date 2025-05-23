@@ -40,14 +40,15 @@
 
     <!-- Floating Card on the Side (without duplicate post content) -->
     <div class="content-grid">
-      <div class="affiliate-card">
-        <div class="card-content">
-          <img class="product-image" src="{{ post.image_url }}" alt="Product Image">
-          <a href="{{ post.affiliate_url }}" class="btn sticky-cta">Buy {{ post.title }} Now</a>
-        </div>
-      </div>
+  <!-- Floating Card with image and "Buy Now" button -->
+  <div class="affiliate-card">
+    <div class="card-content">
+      <img class="product-image" src="{{ post.image_url }}" alt="Product Image">
+      <a href="{{ post.affiliate_url }}" class="btn sticky-cta">Buy {{ post.title }} Now</a>
     </div>
-  </main>
+  </div>
+</div>
+
 
   <footer class="site-footer">
     © {{ now.year }} AlrimCo • <a href="/rss.xml">RSS</a>

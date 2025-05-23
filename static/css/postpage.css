@@ -154,3 +154,10 @@ body {
   background: rgba(0, 0, 0, 0.6);
   padding: 0.5rem 2rem;
 }
+
+.affiliate-card {
+  position: sticky;
+  top: 100px;
+  z-index: 10;
+}
+
