@@ -2,12 +2,12 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: 'Roboto', sans-serif;
-  background: #f4f4f4;
+  background: #fff;
   color: #333;
   line-height: 1.6;
 }
 
-/* Header Section */
+/* Header Section - Floating Header */
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -18,6 +18,8 @@ body {
   top: 0;
   width: 100%;
   z-index: 100;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
 }
@@ -29,35 +31,40 @@ body {
 
 .site-header h1 {
   color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 /* Content Layout */
 .content-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr; /* Dynamic size for the card */
+  grid-template-columns: 1fr 1.3fr; /* Adjust width for card */
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 1rem 2rem 1rem; /* Add padding for spacing */
+  padding: 5rem 2rem 2rem 2rem; /* Padding for spacing */
 }
 
 .affiliate-card {
+  position: -webkit-sticky; /* Safari compatibility */
   position: sticky;
   top: 100px;
-  z-index: 10; /* Ensure the card stays above other content */
+  z-index: 10; /* Ensure card stays above content */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
 }
 
 .card-content {
   background: #f9f9f9;
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-radius: 12px;
+  padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .product-image {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: 1.5rem;
 }
 
@@ -69,7 +76,7 @@ body {
   background-color: #1e90ff;
   color: white;
   padding: 1rem 2rem;
-  border-radius: 5px;
+  border-radius: 10px;
   font-weight: 500;
   text-decoration: none;
   transition: background-color 0.3s ease;
@@ -93,17 +100,18 @@ body {
 
   .site-header {
     padding: 1rem;
+    border-radius: 0;
   }
 
   .post-hero h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 }
 
 /* Post Card */
 .post-card {
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
@@ -145,10 +153,4 @@ body {
 .site-header.scrolled {
   background: rgba(0, 0, 0, 0.6);
   padding: 0.5rem 2rem;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
 }
