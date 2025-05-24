@@ -12,7 +12,7 @@ body {
   padding-top: 4rem; /* Make room for the fixed header */
 }
 
-/* Header Section */
+/* Static Header */
 .site-header {
   display: flex;
   justify-content: space-between;
