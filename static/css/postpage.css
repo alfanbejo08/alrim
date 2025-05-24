@@ -1,10 +1,15 @@
 /* Global Styles */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   font-family: 'Roboto', sans-serif;
-  background: #fff; /* Cleaner white background */
+  background: #fff;
   color: #333;
   line-height: 1.8;
+  padding-top: 4rem; /* Make room for the fixed header */
 }
 
 /* Header Section */
@@ -13,28 +18,30 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.9); /* Lighter, minimal background */
+  background: rgba(255, 255, 255, 0.9);
   position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
   z-index: 100;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px; /* Rounded corners for header */
-  transition: all 0.3s ease;
+  border-radius: 10px;
+  transition: background 0.3s ease, padding 0.3s ease;
   backdrop-filter: blur(10px);
 }
-
 .site-header.scrolled {
   background: rgba(255, 255, 255, 0.6);
   padding: 0.5rem 2rem;
 }
-
 .site-header a {
   color: #333;
   text-decoration: none;
   font-weight: 600;
+  margin-left: 1rem;
 }
-
+.site-header a:first-child {
+  margin-left: 0;
+}
 .site-header a:hover {
   color: #1e90ff;
 }
@@ -42,81 +49,36 @@ body {
 /* Content Layout */
 .content-grid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr; /* Adjusted for two columns */
+  grid-template-columns: 1fr 1.5fr;
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
 
-.affiliate-card {
-  position: sticky;
-  top: 100px;
-  z-index: 10;
-}
-
-.card-content {
-  background: #f9f9f9;
-  border-radius: 10px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.product-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-}
-
-.sticky-cta {
-  display: block;
-  text-align: center;
-  width: 100%;
-  margin-top: 1rem;
-  background-color: #1e90ff;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.sticky-cta:hover {
-  background-color: #4682b4;
-}
-
-/* Mobile Layout */
-@media (max-width: 768px) {
-  .content-grid {
-    grid-template-columns: 1fr;
-    padding: 2rem;
-  }
-
-  .affiliate-card {
-    position: static;
-    margin-top: 2rem;
-  }
-
-  .site-header {
-    padding: 1rem;
-  }
-
-  .post-hero h1 {
-    font-size: 2rem;
-  }
-}
-
 /* Post Card */
 .post-card {
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 15px;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-top: 5rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
-
+.post-hero h1 {
+  font-size: 2.25rem;
+  margin-bottom: 0.5rem;
+}
+.post-hero time {
+  color: #666;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+.post-content p,
+.post-content ul,
+.post-content ol {
+  margin-bottom: 1rem;
+  color: #444;
+}
 .post-card .btn {
   display: inline-block;
   background: #1e90ff;
@@ -127,9 +89,44 @@ body {
   font-weight: 600;
   transition: background 0.3s ease;
 }
-
 .post-card .btn:hover {
   background: #4682b4;
+}
+
+/* Floating Card */
+.affiliate-card {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+.card-content {
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+.sticky-cta {
+  display: block;
+  text-align: center;
+  background-color: #1e90ff;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.sticky-cta:hover {
+  background-color: #4682b4;
 }
 
 /* Footer */
@@ -138,19 +135,31 @@ body {
   padding: 2rem 0;
   background: #f4f4f4;
   color: #333;
+  margin-top: 4rem;
 }
-
 .site-footer a {
   color: #1e90ff;
   text-decoration: none;
 }
 
-/* Floating Header Animation */
-.site-header {
-  transition: all 0.3s ease;
-}
-
-.site-header.scrolled {
-  background: rgba(255, 255, 255, 0.6);
-  padding: 0.5rem 2rem;
+/* Mobile Layout */
+@media (max-width: 768px) {
+  body {
+    padding-top: 3.5rem;
+  }
+  .content-grid {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+  .affiliate-card {
+    position: static;
+    margin-top: 2rem;
+  }
+  .site-header {
+    padding: 0.75rem 1rem;
+    border-radius: 0;
+  }
+  .post-hero h1 {
+    font-size: 2rem;
+  }
 }
