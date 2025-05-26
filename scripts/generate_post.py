@@ -13,9 +13,7 @@ from dotenv import load_dotenv
 # ——— CONFIGURATION —————————————————————————————————————————————————
 
 SHEET_CSV_URL = (
-    "https://docs.google.com/spreadsheets/d/"
-    "11vrnE62rZgQ-4tPzb-_diM9EbDIkBT8Fh6-khEIetMA"
-    "/export?format=csv"
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRkMFzZHE8Io_Vgr_LXoiTwhtpBqmn08-wNgvQUsKhSctPozzEa5Vzuh8_5uTRbVVqhvA-rxit5_4Pw/pub?output=csv"
 )
 
 OUTPUT_DIR = "content/post"
