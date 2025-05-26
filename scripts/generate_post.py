@@ -63,8 +63,12 @@ def read_latest_keyword():
         logging.error("Sheet must have 'keyword', 'affiliate_url', and 'images' columns.")
         sys.exit(1)
 
+    # Get the image URL, if empty, use the placeholder
+    image_url = df['images'].iloc[0] if pd.notna(df['images'].iloc[0]) else "E:/Coding/Alrim/placehorder/placeh.png"
+
     # Pick only the last row (newest entry)
-    return df.tail(1).iloc[0]
+    return df.tail(1).iloc[0], image_url
+
 
 def build_prompt(keyword, affiliate_url, length=POST_LENGTH):
     return (
@@ -114,12 +118,9 @@ def main():
     setup_logging()
     load_api_key()
 
-    row = read_latest_keyword()
+    row, image_url = read_latest_keyword()  # Get both row and image URL
     kw  = row["keyword"]
     url = row["affiliate_url"]
-    
-    # Check if "images" column is empty, and if so, use a placeholder image
-    image_url = row["images"] if pd.notna(row["images"]) else r"E:\Coding\Alrim\placehorder\placeh.png"
 
     logging.info("Generating post for latest keyword: %s", kw)
     try:
