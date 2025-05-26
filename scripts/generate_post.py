@@ -12,20 +12,16 @@ from dotenv import load_dotenv
 
 # ——— CONFIGURATION —————————————————————————————————————————————————
 
-# URL to your published Google Sheet CSV export
 SHEET_CSV_URL = (
     "https://docs.google.com/spreadsheets/d/"
     "11vrnE62rZgQ-4tPzb-_diM9EbDIkBT8Fh6-khEIetMA"
     "/export?format=csv"
 )
 
-# Where to write your Markdown posts
 OUTPUT_DIR = "content/post"
 
-# Default OpenAI model; override with OPENAI_MODEL env var if desired
 DEFAULT_MODEL = "gpt-4.1-nano"
 
-# Length of each post in words
 POST_LENGTH = 800
 
 # ——— FUNCTIONS ———————————————————————————————————————————————————
@@ -55,19 +51,19 @@ def read_latest_keyword():
 
     df = pd.read_csv(io.StringIO(resp.text))
 
-    # if your sheet still calls it "affiliate_link", rename that to affiliate_url
+    # Rename columns if needed
     if "affiliate_link" in df.columns:
         df = df.rename(columns={"affiliate_link": "affiliate_url"})
 
-    # sanity checks
+    # Check if the essential columns exist
     if df.empty:
         logging.error("No data found in sheet; exiting.")
         sys.exit(1)
-    if not {"keyword", "affiliate_url"}.issubset(df.columns):
-        logging.error("Sheet must have 'keyword' and 'affiliate_url' columns.")
+    if not {"keyword", "affiliate_url", "images"}.issubset(df.columns):
+        logging.error("Sheet must have 'keyword', 'affiliate_url', and 'images' columns.")
         sys.exit(1)
 
-    # pick only the last row (newest entry)
+    # Pick only the last row (newest entry)
     return df.tail(1).iloc[0]
 
 def build_prompt(keyword, affiliate_url, length=POST_LENGTH):
@@ -86,12 +82,12 @@ def generate_content(prompt, model):
     )
     return resp.choices[0].message.content
 
-def save_markdown(keyword, affiliate_url, content, out_dir=OUTPUT_DIR):
+def save_markdown(keyword, affiliate_url, image_url, content, out_dir=OUTPUT_DIR):
     slug = slugify(keyword)
     filename = os.path.join(out_dir, f"{slug}.md")
     os.makedirs(out_dir, exist_ok=True)
 
-    # pull first paragraph or first 150 chars as a description
+    # Pull first paragraph or first 150 chars as a description
     first_para = content.strip().split("\n\n")[0]
     description = first_para[:150].replace("\n", " ") + "..."
 
@@ -102,6 +98,7 @@ def save_markdown(keyword, affiliate_url, content, out_dir=OUTPUT_DIR):
         f'description: "{description}"',
         f'slug: "{slug}"',
         f'affiliate_url: "{affiliate_url}"',
+        f'image_url: "{image_url}"',  # Add the image_url to the frontmatter
         "---\n",
     ]
 
@@ -120,12 +117,13 @@ def main():
     row = read_latest_keyword()
     kw  = row["keyword"]
     url = row["affiliate_url"]
+    image_url = row["images"]  # Get the image URL
 
     logging.info("Generating post for latest keyword: %s", kw)
     try:
         prompt = build_prompt(kw, url, POST_LENGTH)
         content = generate_content(prompt, os.getenv("OPENAI_MODEL", DEFAULT_MODEL))
-        save_markdown(kw, url, content)
+        save_markdown(kw, url, image_url, content)  # Pass image_url to save_markdown
     except Exception as e:
         logging.exception("Failed to generate post for %s: %s", kw, e)
         sys.exit(1)
