@@ -9,7 +9,9 @@ body {
   background: #fff;
   color: #333;
   line-height: 1.8;
-  padding-top: 4rem; /* Make room for the fixed header */
+  padding-top: 72px; /* Make room for the fixed header */
+  overflow-x: hidden;
+  user-select: none;
 }
 
 /* Static Header (Floating) */
@@ -47,123 +49,119 @@ body {
 }
 
 /* Content Layout */
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr; /* Adjusted for a more compact view */
-  gap: 1.5rem; /* Smaller gap between content and floating card */
-  max-width: 1100px; /* Slightly narrower */
-  margin: 0 auto;
-  padding: 2rem 1rem;
+main {
+  max-width: 1024px;
+  margin: 64px auto 96px;
+  display: flex;
+  gap: 56px;
+  padding: 0 24px;
 }
 
-/* Post Card */
-.post-card {
+.content-left {
+  flex: 2;
+  position: relative;
+  color: #1a232e;
+  font-size: 1.18rem;
+  line-height: 1.75;
+  padding-left: 28px;
+}
+.content-left h1 {
+  font-weight: 900;
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #0a56c2, #0041a3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.content-left p {
+  margin-bottom: 24px;
+  color: #33475b;
+}
+
+.content-left::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #0a56c2, #0041a3);
+}
+
+.shapes-left {
+  position: absolute;
+  top: 30%;
+  left: 14%;
+  width: 240px;
+  height: 240px;
+  pointer-events: none;
+  opacity: 0.06;
+  z-index: -1;
+}
+.circle1, .circle2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(32px);
+}
+.circle1 {
+  width: 120px;
+  height: 120px;
+  background: #0a56c2;
+}
+.circle2 {
+  width: 180px;
+  height: 180px;
+  background: #0041a3;
+  bottom: 10px;
+  right: 10px;
+}
+
+/* Right Product Card */
+aside.card {
+  flex: 1;
   background: #ffffff;
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  max-width: 750px; /* Ensure the post card is not too wide */
-  margin: 0 auto;
-}
-.post-hero h1 {
-  font-size: 2.25rem;
-  margin-bottom: 0.5rem;
-}
-.post-hero time {
-  color: #666;
-  font-size: 0.9rem;
-  display: block;
-  margin-bottom: 1.5rem;
-}
-.post-content p,
-.post-content ul,
-.post-content ol {
-  margin-bottom: 1rem;
-  color: #444;
-}
-.post-card .btn {
-  display: inline-block;
-  background: #1e90ff;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-.post-card .btn:hover {
-  background: #4682b4;
-}
-
-/* Floating Card */
-.affiliate-card {
-  position: sticky;
-  top: 120px;
-  align-self: start;
-  width: 100%;
-  max-width: 350px; /* Make the floating card narrower */
-}
-.card-content {
-  background: #f9f9f9;
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 30px 24px 36px;
+  box-shadow: 0 8px 18px rgb(10 86 194 / 0.18);
+  border: 3px solid transparent;
+  background-image: linear-gradient(white, white), linear-gradient(135deg, #0a56c2, #0041a3);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
 }
-.product-image {
+aside.card img {
   width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
+  max-width: 320px;
+  border-radius: 16px;
+  box-shadow: 0 12px 36px rgb(10 86 194 / 0.22);
 }
-.sticky-cta {
-  display: block;
-  text-align: center;
-  background-color: #1e90ff;
+.buy-button {
+  margin-top: 28px;
+  width: 100%;
+  padding: 16px 0;
+  font-weight: 700;
+  font-size: 1.15rem;
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-.sticky-cta:hover {
-  background-color: #4682b4;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(270deg, #0a56c2, #0041a3, #0a57c3, #0041a3);
+  animation: buttonGradientShift 7s ease infinite;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* Footer */
-.site-footer {
-  text-align: center;
-  padding: 2rem 0;
-  background: #f4f4f4;
-  color: #333;
-  margin-top: 4rem;
-}
-.site-footer a {
-  color: #1e90ff;
-  text-decoration: none;
-}
-
-/* Mobile Layout */
-@media (max-width: 768px) {
-  body {
-    padding-top: 3.5rem;
+/* Responsive */
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
+    padding: 0 16px;
+    margin: 48px auto 80px;
+    gap: 48px;
   }
-  .content-grid {
-    grid-template-columns: 1fr;
-    padding: 2rem;
-  }
-  .affiliate-card {
-    position: static;
-    margin-top: 2rem;
-  }
-  .site-header {
-    padding: 0.75rem 1rem;
-    border-radius: 0;
-  }
-  .post-hero h1 {
-    font-size: 2rem;
+  aside.card {
+    max-width: 100%;
+    margin: 0 auto;
   }
 }

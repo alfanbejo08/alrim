@@ -19,47 +19,42 @@
 
   <!-- Static Header -->
   <header class="site-header">
-    <a href="/">Home</a>
-    <a href="/deals/">Deals</a>
-    <a href="/guides/">Guides</a>
-    <a href="/blog/">Blog</a>
-    <a href="/contact/">Contact</a>
+    <div class="logo">Alrimco</div>
+    <nav role="navigation">
+      <a href="/">Home</a>
+      <a href="/deals/">Deals</a>
+      <a href="/guides/">Guides</a>
+      <a href="/blog/">Blog</a>
+      <a href="/contact/">Contact</a>
+    </nav>
   </header>
 
-  <main class="post-container">
-    <div class="content-grid">
-      <!-- Post Content -->
-      <article class="post-card">
-        <header class="post-hero">
-          <h1>{{ post.title }}</h1>
-          <time datetime="{{ post.date }}">{{ post.date[:10] }}</time>
-        </header>
-
-        <div class="post-content">
-          {{ post.html|safe }}
-        </div>
-
-        {% if "shopee" in post.affiliate_url %}
-            <a href="{{ post.affiliate_url }}" class="btn">Shop on Shopee</a>
-        {% else %}
-            <a href="{{ post.affiliate_url }}" class="btn">Shop on Amazon</a>
-        {% endif %}
-      </article>
-
-      <!-- Floating Card on the Side (without duplicate post content) -->
-      <div class="affiliate-card">
-        <div class="card-content">
-          <img class="product-image" src="{{ post.image_url }}" alt="Product Image">
-          <a href="{{ post.affiliate_url }}" class="btn sticky-cta">Buy {{ post.title }} Now</a>
-        </div>
+  <main>
+    <section class="content-left">
+      <h1>{{ post.title }}</h1>
+      <p>{{ post.description }}</p>
+      <div class="shapes-left">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
       </div>
-    </div>
+      <div class="post-content">
+        {{ post.html|safe }}
+      </div>
+      <a href="{{ post.affiliate_url }}" class="btn sticky-cta">Buy Now</a>
+    </section>
+
+    <!-- Floating Product Card -->
+    <aside class="card">
+      <img class="product-image" src="{{ post.image_url }}" alt="Product Image">
+      <a href="{{ post.affiliate_url }}" class="buy-button">Buy {{ post.title }} Now</a>
+    </aside>
   </main>
 
   <footer class="site-footer">
     © {{ now.year }} AlrimCo • <a href="/rss.xml">RSS</a>
   </footer>
 
-  <script src="/static/css/postpage.js"></script>
+  <!-- JavaScript -->
+  <script src="/static/js/postpage.js"></script>
 </body>
 </html>
