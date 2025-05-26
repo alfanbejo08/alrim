@@ -117,7 +117,9 @@ def main():
     row = read_latest_keyword()
     kw  = row["keyword"]
     url = row["affiliate_url"]
-    image_url = row["images"]  # Get the image URL
+    
+    # Check if "images" column is empty, and if so, use a placeholder image
+    image_url = row["images"] if pd.notna(row["images"]) else r"E:\Coding\Alrim\placehorder\placeh.png"
 
     logging.info("Generating post for latest keyword: %s", kw)
     try:
