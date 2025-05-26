@@ -6,7 +6,7 @@
   <title>{{ post.title }} • AlrimCo</title>
 
   <!-- Google Fonts + Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
   <!-- GA snippet -->
@@ -18,7 +18,7 @@
 <body>
 
   <!-- Static Header -->
-  <header class="site-header">
+  <header class="site-header" role="banner" aria-label="Primary Navigation">
     <div class="logo">Alrimco</div>
     <nav role="navigation">
       <a href="/">Home</a>
@@ -30,7 +30,7 @@
   </header>
 
   <main>
-    <section class="content-left">
+    <section class="content-left" aria-label="Main textual content">
       <h1>{{ post.title }}</h1>
       <p>{{ post.description }}</p>
       <div class="shapes-left">
@@ -44,7 +44,7 @@
     </section>
 
     <!-- Floating Product Card -->
-    <aside class="card">
+    <aside class="card" role="complementary" aria-label="Featured product">
       <img class="product-image" src="{{ post.image_url }}" alt="Product Image">
       <a href="{{ post.affiliate_url }}" class="buy-button">Buy {{ post.title }} Now</a>
     </aside>
